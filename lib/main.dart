@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_schulung/widget/home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_schulung/data/data_sources/advice_remote_data_source.dart';
+import 'package:flutter_schulung/data/repositories/advice_repo_impl.dart';
+import 'package:flutter_schulung/domain/repositories/advice_repo.dart';
+import 'package:flutter_schulung/presentation/page/advice/advice_page.dart';
+import 'package:http/http.dart';
 
 void main() {
-  runApp(const MyApp());
+  // final dataSourceA = AdviceRestApi(client: Client());
+
+  runApp(RepositoryProvider<AdviceRepo>(
+    create: (context) => AdviceRepoImpl(dataSource: AdviceRestMock()),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,6 +35,17 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: AdvicePageProvider(),
     );
   }
 }
