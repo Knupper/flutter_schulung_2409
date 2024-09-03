@@ -6,6 +6,11 @@ import 'package:flutter_schulung/domain/repositories/advice_repo.dart';
 import 'package:flutter_schulung/presentation/page/advice/advice_page.dart';
 import 'package:http/http.dart';
 
+// Aufgabe cubit
+// Button: der immer advice 42 abruft
+// Bonus: TextEditingField in das der Nutzer die Zahl eingeben kann und mit Button Klick wird der dazu entsprechende Advice abgerufen
+
+
 void main() {
   final dataSourceA = AdviceRestApi(client: Client());
 
