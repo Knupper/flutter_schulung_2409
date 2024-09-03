@@ -103,7 +103,7 @@ class _PersonCardState extends State<PersonCard> {
         });
       },
       child: AnimatedContainer(
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         color: _color,
         child: Center(child: Text(widget.text)),
       ),
@@ -121,7 +121,7 @@ class EdekaText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).typography;
+    // final theme = Theme.of(context).typography;
 
     return Text(
       text,
