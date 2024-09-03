@@ -7,10 +7,10 @@ import 'package:flutter_schulung/presentation/page/advice/advice_page.dart';
 import 'package:http/http.dart';
 
 void main() {
-  // final dataSourceA = AdviceRestApi(client: Client());
+  final dataSourceA = AdviceRestApi(client: Client());
 
   runApp(RepositoryProvider<AdviceRepo>(
-    create: (context) => AdviceRepoImpl(dataSource: AdviceRestMock()),
+    create: (context) => AdviceRepoImpl(dataSource: dataSourceA),
     child: const MyApp(),
   ));
 }

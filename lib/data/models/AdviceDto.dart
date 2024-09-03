@@ -9,7 +9,7 @@ class AdviceDto {
 
   factory AdviceDto.fromJson(Map<String, dynamic> json) {
     return AdviceDto(
-      id: json['id'],
+      id: json['advice_id'],
       advice: json['advice'],
     );
   }
