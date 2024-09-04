@@ -9,7 +9,7 @@ import 'package:http/http.dart';
 // Aufgabe cubit
 // Button: der immer advice 42 abruft
 // Bonus: TextEditingField in das der Nutzer die Zahl eingeben kann und mit Button Klick wird der dazu entsprechende Advice abgerufen
-
+// Bonus: Wenn der Nuzter 42 abruft, soll immer folgende Ausgabe kommen : "Das ist die ganze Warheit".
 
 void main() {
   final dataSourceA = AdviceRestApi(client: Client());
