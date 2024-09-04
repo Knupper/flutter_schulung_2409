@@ -10,8 +10,11 @@ class AdvicePageProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AdvicePageCubit>(
-      create: (context) =>
-          AdvicePageCubit(useCase: AdviceUseCase(repository: RepositoryProvider.of<AdviceRepo>(context))),
+      create: (context) => AdvicePageCubit(
+        useCase: AdviceUseCase(
+          repository: RepositoryProvider.of<AdviceRepo>(context),
+        ),
+      ),
       child: const AdvicePage(),
     );
   }
