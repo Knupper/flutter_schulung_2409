@@ -115,5 +115,23 @@ void main() {
         verify(() => mockCubit.fetchAdvice()).called(1);
       });
     });
+
+    // create new golden files: flutter test --update-goldens
+    // https://pub.dev/packages/alchemist
+    group('golden tests', () {
+      testWidgets('for loaded view', (WidgetTester tester) async {
+        whenListen(
+          mockCubit,
+          Stream.fromIterable(
+            <AdvicePageState>[],
+          ),
+          initialState: AdvicePageLoaded(entity: AdviceEntity(advice: 'Hallo Welt!')),
+        );
+
+        await tester.pumpWidget(widgetUnderTest(pageCubit: mockCubit));
+
+        await expectLater(find.byType(AdvicePage), matchesGoldenFile('goldens/advice_page_loaded.png'));
+      });
+    });
   });
 }
