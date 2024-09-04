@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_schulung/data/models/AdviceDto.dart';
+import 'package:flutter_schulung/data/models/advice_dto.dart';
 import 'package:http/http.dart' as http;
 
 abstract class AdviceDataSource with Read<AdviceDto> {
