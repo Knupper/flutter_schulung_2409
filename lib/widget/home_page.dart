@@ -105,7 +105,17 @@ class _PersonCardState extends State<PersonCard> {
       child: AnimatedContainer(
         duration: const Duration(seconds: 1),
         color: _color,
-        child: Center(child: Text(widget.text)),
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/IMG_1179.jpeg',
+              height: 200,
+              width: 200,
+              fit: BoxFit.fitWidth,
+            ),
+            Center(child: Text(widget.text)),
+          ],
+        ),
       ),
     );
   }
