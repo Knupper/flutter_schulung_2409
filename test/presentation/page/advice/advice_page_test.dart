@@ -5,7 +5,7 @@ import 'package:flutter_schulung/domain/entity/advice_entity.dart';
 import 'package:flutter_schulung/presentation/page/advice/advice_page.dart';
 import 'package:flutter_schulung/presentation/page/advice/cubit/advice_page_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class MockAdvicePageCubit extends MockCubit<AdvicePageState> implements AdvicePageCubit {}
 
@@ -75,11 +75,27 @@ void main() {
         expect(loadedText, findsOne);
       });
 
-      testWidgets('error view', (WidgetTester tester) async {});
+      testWidgets('error view', (WidgetTester tester) async {
+        whenListen(
+          mockCubit,
+          Stream.fromIterable(
+            <AdvicePageState>[],
+          ),
+          initialState: AdvicePageError(),
+        );
+
+        await tester.pumpWidget(widgetUnderTest(pageCubit: mockCubit));
+
+        final errorText = find.text('FEHLER');
+
+        expect(errorText, findsOne);
+      });
     });
 
     group('should handle interaction', () {
       testWidgets('should call fetchAdvice once', (tester) async {
+        when(() => mockCubit.fetchAdvice()).thenAnswer((_) async => Future.value());
+
         whenListen(
           mockCubit,
           Stream.fromIterable(
@@ -90,9 +106,11 @@ void main() {
 
         await tester.pumpWidget(widgetUnderTest(pageCubit: mockCubit));
 
-        final button = find.byType(OutlinedButton);
+        await tester.pump();
 
-        await tester.tap(button);
+        final buttonText = find.text('fetch');
+
+        await tester.tap(buttonText);
 
         verify(() => mockCubit.fetchAdvice()).called(1);
       });
