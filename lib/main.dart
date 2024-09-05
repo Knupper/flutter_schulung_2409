@@ -26,6 +26,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Theme.of(context).typography;
+    //
+    // context.theme;
+
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -53,4 +57,16 @@ class HomePage extends StatelessWidget {
       body: AdvicePageProvider(),
     );
   }
+}
+
+extension BuildContextExtension on BuildContext {
+  ThemeData get theme => Theme.of(this);
+
+  TextTheme get textStyles => theme.textTheme;
+}
+
+extension DoubleListExtension on List<double> {
+  List<double> get betweenZeroAndOne => where(
+        (element) => element > 0 && element < 1,
+      ).toList();
 }
