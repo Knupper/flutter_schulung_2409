@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-
-/// Aufgabe: Visitenkarte
-/// Bild vorhanden
-/// Name, Vorname
-/// Anschrift
-/// Telefonnummer
-/// Mail Adresse
+import 'package:flutter_schulung/widget/page/page_a.dart';
+import 'package:flutter_schulung/widget/page/page_b.dart';
+import 'package:flutter_schulung/widget/page/page_c.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int currentPageIndex = 0;
+
   late final ScrollController controller;
 
   @override
@@ -31,43 +29,45 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(left: 20),
-        decoration: BoxDecoration(
+    late Widget child;
+    switch (currentPageIndex) {
+      case 0:
+        child = Container(
+          color: Colors.red,
+        );
+        break;
+      case 1:
+        child = Container(
           color: Colors.green,
-          border: Border.all(color: Colors.red, width: 2),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                controller.animateTo(
-                  0,
-                  duration: const Duration(seconds: 5),
-                  curve: Curves.bounceInOut,
-                );
-              },
-              child: const Text('Jump to top'),
-            ),
-            Expanded(
-              child: ListView.separated(
-                controller: controller,
-                itemCount: 100,
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 100,
-                ),
-                itemBuilder: (context, index) => PersonCard(
-                  text: index.toString(),
-                  color: Colors.amber,
-                  size: 300,
-                ),
-              ),
-            ),
-          ],
-        ),
+        );
+        break;
+      case 2:
+        child = Container(
+          color: Colors.amber,
+        );
+        break;
+      default:
+        child = const Text('FEHLER');
+        break;
+    }
+
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: currentPageIndex,
+        onDestinationSelected: (value) => setState(() {
+          currentPageIndex = value;
+        }),
+        destinations: const [
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.animation), label: 'Animation'),
+          NavigationDestination(icon: Icon(Icons.assistant_navigation), label: 'Navigation'),
+        ],
       ),
+      body: <Widget>[
+        const PageA(),
+        const PageB(),
+        const PageC(),
+      ][currentPageIndex],
     );
   }
 }
